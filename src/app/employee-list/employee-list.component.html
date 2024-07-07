@@ -1,0 +1,21 @@
+<div class="container">
+  <h2 class="title">Employee List</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Employee First Name</th>
+        <th>Employee Last Name</th>
+        <th>Employee Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(employee of employees; track employee){
+        <tr>
+          <td>{{employee.firstname}}</td>
+          <td>{{employee.lastname}}</td>
+          <td>{{employee.email}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
