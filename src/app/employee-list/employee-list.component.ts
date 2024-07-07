@@ -1,26 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
-import { RouterOutlet } from '@angular/router';
+import { EmployeeService } from '../employee.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.scss'
 })
 export class EmployeeListComponent implements OnInit{
+  employees : Employee[] = [];
+
+  public constructor(private emp_serv : EmployeeService){
+  }
+
+  employees$: Observable<Employee[]> = this.emp_serv.getEmployeesList();
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  employees : Employee[];
+    this.fetchEmployees();
 
-  public constructor(){
-    this.employees = [
-      new Employee()
-    ];
   }
 
+
+  fetchEmployees():void{
+    this.emp_serv.getEmployeesList().subscribe(
+      (data: Employee[]) =>{
+        this.employees = data;
+        console.log(data)
+      },
+    )
+  }
 
 }
